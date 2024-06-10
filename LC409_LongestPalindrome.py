@@ -1,30 +1,24 @@
 class Solution:
     def longestPalindrome(self, s: str) -> int:
-        letters = {}
+        # counts = defaultdict(int)
+        # res = 0
+        # for i in s:
+        #     counts[i]+=1
+        #     if counts[i] % 2 == 0:
+        #         res +=2
+        # for j in counts.values():
+        #     if j % 2 == 1:
+        #         res+=1
+        #         break
+        # return res
 
-        for char in s:
-            if char not in letters:
-                letters[char] = 1
-            else:
-                letters[char] +=1
-                
+        seen = set()
         res = 0
-        odd = 0
-            
-        if len(letters) == 1:
-            return letters[s[0]]
-            
-        for i in letters.values():
-            if i > 1:
-                if i % 2 == 0:
-                    res += i
-                else:
-                    res += i - 1
-                    odd += 1		
+        for i in s:
+            if i in seen:
+                seen.remove(i)
+                res += 2
             else:
-                odd +=1
+                seen.add(i)
 
-        if odd > 0:
-            res += 1
-            
-        return res
+        return res + 1 if seen else res
